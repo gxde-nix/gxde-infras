@@ -1,0 +1,46 @@
+--- a/language_support/lang_support.go
++++ b/language_support/lang_support.go
+@@ -31,33 +31,19 @@
+ }
+ 
+ func (ls *LanguageSupport) isPkgInstalled(name string) (bool, error) {
+-	output, err := exec.Command("/usr/bin/dpkg-query", "-W", "-f",
+-		"${db:Status-Status}", "--", name).Output()
+-	if err != nil {
+-		return false, err
+-	}
+-	return bytes.Equal(bytes.TrimSpace(output), []byte("installed")), nil
++    err := exec.Command("/usr/bin/rpm", "-q", "--quiet", "--", name).Run()
++    if failure, ok := err.(*exec.ExitError); ok && failure.ExitCode() == 1 {
++        return false, nil
++    }
++    return err == nil, err
+ }
+ 
+ func (ls *LanguageSupport) isPkgInstallable(name string) (bool, error) {
+-	cmd := exec.Command("/usr/bin/apt-cache", "policy",
+-		"--", name)
+-	cmd.Env = []string{"LANG=en_US.UTF-8"}
+-	output, err := cmd.Output()
+-	if err != nil {
+-		return false, err
+-	}
+-
+-	const candidate = "Candidate: "
+-	idx := bytes.Index(output, []byte(candidate))
+-	if idx == -1 {
+-		return false, nil
+-	}
+-
+-	if bytes.HasPrefix(output[idx+len(candidate):], []byte("(none)")) {
+-		return false, nil
+-	}
+-	return true, nil
++    output, err := exec.Command("/usr/bin/dnf", "--quiet", "repoquery", "--available", "--queryformat", "%{name}", "--", name).Output()
++    if err != nil {
++        return false, err
++    }
++    return len(bytes.TrimSpace(output)) != 0, nil
+ }
+ 
+ // ByPackageAndLocale get language support packages for a package and locale.

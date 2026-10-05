@@ -1,0 +1,15 @@
+--- a/tools/qdbusxml2cpp/CMakeLists.txt
++++ b/tools/qdbusxml2cpp/CMakeLists.txt
+@@ -9,6 +9,12 @@
+ # then re-run cmake to generate headers with the fix tool.
+ 
+ find_package(Qt6 REQUIRED COMPONENTS Core DBus)
++if(NOT TARGET Qt6::CorePrivate)
++    find_package(Qt6CorePrivate REQUIRED)
++endif()
++if(NOT TARGET Qt6::DBusPrivate)
++    find_package(Qt6DBusPrivate REQUIRED)
++endif()
+ 
+ # Qt packaging either exports private targets with the public components or
+ # provides them as separate packages. Support both layouts.

@@ -1,0 +1,6 @@
+--- a/Makefile
++++ b/Makefile
+@@ -59,2 +59,2 @@
+-out/bin/%:
++out/bin/%: | prepare
+ 	${GOBUILD} -buildmode=pie -o $@  ${GOPKG_PREFIX}/${@F}

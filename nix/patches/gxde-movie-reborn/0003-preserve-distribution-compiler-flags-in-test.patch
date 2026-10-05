@@ -1,0 +1,11 @@
+--- a/src/test/CMakeLists.txt
++++ b/src/test/CMakeLists.txt
+@@ -5,7 +5,7 @@ set(CMD_NAME gxmr_test)
+ 
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+-set(CMAKE_CXX_FLAGS "-fpermissive -Wno-error")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wno-error -fPIE")
+ 
+ include_directories(${CMAKE_INCLUDE_CURRENT_DIR})
+ 

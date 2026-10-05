@@ -1,0 +1,11 @@
+--- a/gocode/pkg.deepin.io/lib/asound/asound.go
++++ b/gocode/pkg.deepin.io/lib/asound/asound.go
+@@ -2,7 +2,7 @@
+ 
+ /*
+ #cgo pkg-config: alsa
+-#include <asoundlib.h>
++#include <alsa/asoundlib.h>
+ #include <stdlib.h>
+ #include <errno.h>
+ */

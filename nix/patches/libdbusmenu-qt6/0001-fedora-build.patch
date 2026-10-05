@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -111,7 +111,7 @@
+ configure_file(dbusmenu-qt.pc.in ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc @ONLY)
+ 
+ install(FILES ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc
+-        DESTINATION lib/pkgconfig
++        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+     )
+ 
+ add_subdirectory(src)
